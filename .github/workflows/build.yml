@@ -1,0 +1,35 @@
+name: portable-release-actions-workflow
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+      - 'c*' # Push events to matching v*, i.e. v1.0, v20.15.10
+      
+jobs:
+  build:
+    name: Create Release
+    runs-on: windows-latest
+    env:
+      targetZip: squareline-studio-portable-${{ github.ref_name }}.zip
+    steps:
+      - uses: actions/checkout@v4
+      
+      # - name: anydesk
+      #   shell: cmd
+      #   run: |
+      #     curl -L -O -J https://download.anydesk.com/AnyDesk.exe &&^
+      #     .\AnyDeskStart.cmd
+          
+      - name: installer
+        shell: cmd
+        run: |
+          curl -L -J --output installer.zip "https://static.squareline.io/downloads/SquareLine_Studio_Windows_v1_2_3.zip" &&^
+          7z.exe x installer.zip &&^
+          dir
+
+https://download.steinberg.net/automated_updates/sda-selfupdate/releases/absolute-downloader-1.35.0-b554-ee1498e0-5fb5-4bfd-8dcd-5df7a845d69e/win/Steinberg_Download_Assistant_1.35.0_Installer_win.exe
+
+set __COMPAT_LAYER=RUNASINVOKER
+Steinberg_Download_Assistant_1.35.0_Installer_win.exe --mode unattended --destination=%cd%\24"
+pause
