@@ -31,20 +31,12 @@ jobs:
         run: |
           set __COMPAT_LAYER=RUNASINVOKER
           installer.exe --mode unattended
-          cd /d C:\Program Files (x86)\Steinberg\Download Assistant &&^
+          7z.exe a "${{ env.targetZip }}" "C:\Program Files (x86)\Steinberg\Download Assistant\*"
           dir /s
-
-      - name: Archive Release
-        uses: thedoctor0/zip-release@master
-        with:
-          type: 'zip'
-          directory: "C:/Program Files (x86)/Steinberg/Download Assistant"
-          filename: "${{ env.targetZip }}"
           
       - name: Release prebuilt
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "C:/Program Files (x86)/Steinberg/Download Assistant/${{ env.targetZip }}"
+          artifacts: "${{ env.targetZip }}"
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
-
