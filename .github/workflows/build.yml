@@ -32,4 +32,3 @@ jobs:
           set __COMPAT_LAYER=RUNASINVOKER
           installer.exe --mode unattended --destination=%cd%\installation
           dir /s
-
