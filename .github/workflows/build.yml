@@ -11,7 +11,7 @@ jobs:
     name: Create Release
     runs-on: windows-latest
     env:
-      targetZip: squareline-studio-portable-${{ github.ref_name }}.zip
+      targetZip: steinberg-download-assistant-portable-${{ github.ref_name }}.zip
     steps:
       - uses: actions/checkout@v4
       
@@ -24,12 +24,12 @@ jobs:
       - name: installer
         shell: cmd
         run: |
-          curl -L -J --output installer.zip "https://static.squareline.io/downloads/SquareLine_Studio_Windows_v1_2_3.zip" &&^
-          7z.exe x installer.zip &&^
+          curl -L -J --output installer.exe "https://download.steinberg.net/automated_updates/sda-selfupdate/releases/absolute-downloader-1.35.0-b554-ee1498e0-5fb5-4bfd-8dcd-5df7a845d69e/win/Steinberg_Download_Assistant_1.35.0_Installer_win.exe" &&^
           dir
+          
+      - shell: cmd
+        run: |
+          set __COMPAT_LAYER=RUNASINVOKER
+          installer.exe --mode unattended --destination=%cd%\installation
+          dir /s
 
-https://download.steinberg.net/automated_updates/sda-selfupdate/releases/absolute-downloader-1.35.0-b554-ee1498e0-5fb5-4bfd-8dcd-5df7a845d69e/win/Steinberg_Download_Assistant_1.35.0_Installer_win.exe
-
-set __COMPAT_LAYER=RUNASINVOKER
-Steinberg_Download_Assistant_1.35.0_Installer_win.exe --mode unattended --destination=%cd%\24"
-pause
